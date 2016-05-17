@@ -1,10 +1,10 @@
-<div class="container page-wrapper" ng-controller="TestDetailController">
+<div class="container page-wrapper">
 	<div class="ept-test-admin-page">
 		<header class="page-header  clear-fix">
 			<span class="back">
-			<i class="fa fa-arrow-left"></i></span>
-			<h3 class="page-title">
-				Test for Beijing Jiao Da
+			<i class="ept-back-button fa fa-arrow-left" ng-click="goBack()"></i></span>
+			<h3 class="page-title" editable-text="test.name">
+				{{test.name}}
 			</h3>
 			<ept-action-group 
 			actions="testActions"></ept-action-group>
@@ -15,7 +15,7 @@
 					Description
 				</h4>
 				<div class="section-content">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nihil maiores repellendus vitae culpa laudantium asperiores accusamus nulla distinctio debitis tempore deserunt nostrum et magni dolore error, facilis ducimus nemo.
+					<editable-text-angular content="test.description"></editable-text-angular>
 				</div>
 			</section>
 			<section class="section categories">
@@ -23,11 +23,7 @@
 				Categories
 			</h4>
 			<div class="section-content">
-				<ept-category category="category" class="'darken-on-hover'">
-				</ept-category>
-				<ept-category category="category" class="'darken-on-hover'">
-				</ept-category>
-				<ept-category category="category" class="'darken-on-hover'">
+				<ept-category category="category" ng-repeat="category in categories" ng-class="'darken-on-hover'" on-changed='saveCategory(category)'>
 				</ept-category>
 			</div>
 			</section>

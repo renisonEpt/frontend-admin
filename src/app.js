@@ -8,5 +8,5 @@ import routing from './app.config';
 import core from "renison-ept-frontend-core";
 import test from "./features/test"
 angular.module('EPTAdmin', [uirouter, core,test])
-  .config(routing);
+	.config(routing);
 
