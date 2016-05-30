@@ -7,8 +7,8 @@ export default function routes($stateProvider) {
       template: require('./test.html')
     })
     .state('testDetail',{
-    	url:'/test/:testId/detail',
-    	template:require('./test-detail/test-detail.html'),
+      url:'/test/:testId/detail',
+      template:require('./test-detail/test-detail.html'),
       controller:"TestDetailController",
       resolve:{
         'test':['TestService','$stateParams',function(TestService,$stateParams){
@@ -23,7 +23,25 @@ export default function routes($stateProvider) {
           });
           return categories.$promise;
         }],
-
+      }
+    })
+    .state('categoryDetail',{
+    	url:'/categories/:categoryId/detail',
+    	template:require('./category-detail/category-detail.html'),
+      controller:"CategoryDetailController",
+      resolve:{
+        'category':['CategoryService','$stateParams',function(CategoryService,$stateParams){
+          var category =  CategoryService.get({
+            categoryId:$stateParams.categoryId
+          });
+          return category.$promise;
+        }],
+        'testComponents':['CategoryService','$stateParams',function(CategoryService,$stateParams){
+          var testComponents =  CategoryService.getTestComponents({
+            categoryId:$stateParams.categoryId
+          });
+          return testComponents.$promise;
+        }]
       }
     })
     ;

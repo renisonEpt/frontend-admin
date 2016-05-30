@@ -1,0 +1,14 @@
+functionality road map
+ ✔ sync question order @done (16-05-29 21:18)
+   ✔ need a way to sync newly returned objects from server and client objects @done (16-05-29 21:18)
+     ✔ make sure no further `onChange` is triggered @done (16-05-29 21:18)
+     ☐ ideally have a loading bar for that component, can be done thru another `loading` attribute, TODO
+   encountered cross origin error, solved by adding another command line arg
+ ✔ delete question @done (16-05-29 21:18)
+ ✔ delete category @done (16-05-29 22:12)
+ ✔ delete test @done (16-05-29 22:12)
+ ☐ copy test
+ ☐ go back
+ ☐ start test
+ ☐ score & report generation
+ ☐ 

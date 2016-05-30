@@ -1,5 +1,5 @@
 <div class="container page-wrapper">
-	<div class="ept-test-admin-page">
+	<div class="ept-test-admin-page test-detail">
 		<header class="page-header  clear-fix">
 			<span class="back">
 			<i class="ept-back-button fa fa-arrow-left" ng-click="goBack()"></i></span>
@@ -23,8 +23,9 @@
 				Categories
 			</h4>
 			<div class="section-content">
-				<ept-category category="category" ng-repeat="category in categories" ng-class="'darken-on-hover'" on-changed='saveCategory(category)'>
+				<ept-category category="category" ng-repeat="category in categories" ng-class="'darken-on-hover'" on-changed='saveCategory(category)' on-deleted="onCategoryDeleted(category)" actions="categoryActions">
 				</ept-category>
+				<ept-toolbar actions="toolbarActions"></ept-toolbar>
 			</div>
 			</section>
 		</div>

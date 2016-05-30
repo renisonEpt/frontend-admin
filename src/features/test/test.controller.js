@@ -9,9 +9,7 @@ export default function TestController($rootScope,$scope, $stateParams,$state,$q
 	$scope.testEditActions = [{
 		class:"",
 		iconClass:"fa fa-trash",
-		onAction:function(){
-			console.log("trash action")
-		}
+		onAction:onTestDeleted
 	},
 	{
 		class:"",
@@ -34,6 +32,28 @@ export default function TestController($rootScope,$scope, $stateParams,$state,$q
 					$scope.seeDetail(test);
 				});
 	};
+	$scope.activateTest = function(test,$event){
+		$event.stopPropagation();
+		test.active = true;
+		return TestService.activateTest(test)
+			.$promise
+			.then(function(){
+				$scope.tests.forEach(function(t){
+					t.active = false;
+				});
+				test.active = true;
+			});
+	};
+	function onTestDeleted (test){
+		return TestService.remove({
+			id:test.id
+		})
+		.$promise
+		.then(function(){
+			var index = $scope.tests.indexOf(test);
+			$scope.tests.splice(index,1);
+		});
+	}
 	TestService.query().$promise.then(function(tests){
 		console.log('tests',tests);
 		$scope.tests = tests;

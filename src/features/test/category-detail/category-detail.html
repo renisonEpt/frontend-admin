@@ -1,0 +1,21 @@
+<div class="container page-wrapper">
+	<div class="ept-test-admin-page">
+		<header class="page-header  clear-fix">
+			<span class="back">
+			<i class="ept-back-button fa fa-arrow-left" ng-click="goBack()"></i></span>
+			<h3 class="page-title">
+				{{category.name}}
+			</h3>
+			<ept-action-group 
+			actions="testActions"></ept-action-group>
+		</header>
+		<div class="container">
+			<ept-test-component-group 
+			components="testComponents" 
+			on-component-created="onComponentCreated(component)"
+			on-component-changed="onComponentChanged(component,oldComponent)"
+			on-component-deleted="onComponentDeleted(component)"
+			></ept-test-component-group>
+		</div>
+	</div>
+</div>

@@ -21,13 +21,16 @@
                 </thead>
                 <tbody>
                     <tr class="test-item" ng-repeat="test in tests" ng-click="seeDetail(test)">
-                        <td>{{test.name}}</td>
+                        <td><i ng-class="{'fa fa-circle':test.active,'fa fa-circle-o':!test.active}" style="color:green"></i>
+                        {{test.name}}</td>
                         <td>{{test.reportTime}}</td>
                         <td>{{test.updateTimeStamp}}</td>
                         <td class="comment">{{test.comment}}</td>
                         <td>
-                            <button class="btn btn-small btn-success start-test">start</button>
-                            <ept-action-group actions="testEditActions" css-class="'no-float'"></ept-action-group>
+                            <button class="btn btn-small btn-success start-test" ng-click="activateTest(test,$event)">start</button>
+
+                            <ept-action-group 
+                            context="test" actions="testEditActions" css-class="'no-float'"></ept-action-group>
                         </td>
                     </tr>
                 </tbody>

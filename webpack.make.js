@@ -198,12 +198,19 @@ module.exports = function makeWebpackConfig(options) {
    * List: http://webpack.github.io/docs/list-of-plugins.html
    */
   config.plugins = [
+    // new webpack.ProvidePlugin({
+    //   'window.jQuery': 'jquery'
+    // }),
+    new webpack.ProvidePlugin({
+      '$': 'jquery'
+    }),
     // Reference: https://github.com/webpack/extract-text-webpack-plugin
     // Extract css files
     // Disabled when in test mode or not in build mode
     new ExtractTextPlugin('[name].[hash].css', {
       disable: !BUILD || TEST
     })
+    
     // for support bower only
     // ,
     // new webpack.ResolverPlugin(

@@ -9,12 +9,44 @@ export default angular.module('eptAdmin.service.category',[core,'ngResource'])
 					categoryId:'@id' // use id as default
 				}, {
 					save: {method:'PUT'},
+					get: {
+						method:'GET',
+						params:{
+							categoryId:'@categoryId'
+						},
+						data:null,
+						headers:{
+							'Content-Type':'application/json'
+						}
+					},
 					getTestComponents:{
 						method:'GET',
 						params:{
 							subResource:'testComponents'
 						},
+						data:null,
 						isArray:true
+					},
+					createTestComponent:{
+						method:'POST',
+						params:{
+							subResource:'testComponents',
+							categoryId:'@categoryId'
+						}
+					},
+					syncComponentOrder:{
+						method:'PUT',
+						params:{
+							subResource:'componentOrder'
+						},
+						isArray:true
+					},
+					remove:{
+						method:'DELETE',
+						params:{
+							categoryId:'@id',
+							data:null
+						}
 					}
 				});
 		return CategoryResource;
