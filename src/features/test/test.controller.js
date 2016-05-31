@@ -32,16 +32,26 @@ export default function TestController($rootScope,$scope, $stateParams,$state,$q
 					$scope.seeDetail(test);
 				});
 	};
-	$scope.activateTest = function(test,$event){
+	$scope.scoreTest = function(test,$event){
 		$event.stopPropagation();
-		test.active = true;
-		return TestService.activateTest(test)
+		TestService.scoreTest({
+			id:test.id
+		});
+	};
+	$scope.toggleTestStatus = function(test,isStart,$event){
+		$event.stopPropagation();
+		return TestService.toggleTestStatus({
+			id:test.id,
+			isStart:isStart
+		})
 			.$promise
 			.then(function(){
-				$scope.tests.forEach(function(t){
-					t.active = false;
-				});
-				test.active = true;
+				if(isStart){
+					$scope.tests.forEach(function(t){
+						t.active = false;
+					});
+				}
+				test.active = isStart;
 			});
 	};
 	function onTestDeleted (test){

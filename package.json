@@ -4,7 +4,7 @@
   "description": "Admin portal for EPT. Where test takes place.",
   "scripts": {
     "build": "webpack --config webpack.build.js --bail -p",
-    "dev": "node node_modules/.bin/webpack-dev-server --history-api-fallback --hot --inline --progress --port=8081",
+    "dev": "node node_modules/.bin/webpack-dev-server --history-api-fallback --hot --inline --progress --port=1444",
     "test": "karma start",
     "test:live": "karma start --auto-watch --no-single-run"
   },

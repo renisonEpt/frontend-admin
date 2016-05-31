@@ -35,12 +35,22 @@ export default angular.module('eptAdmin.service.test',[core,'ngResource'])
 						data:null, //must specify data so that Content-Type header can be included
 						headers:{'Content-Type':'application/json'}
 					},
-					activateTest:{
+					toggleTestStatus:{
 						method:'POST',
 						params:{
-							subResource:'activate'
+							subResource:'status',
+							testId:'@id',
+							isStart:'@isStart'
 						},
-						testId:'@id'
+						data:null
+					},
+					scoreTest:{
+						method:'POST',
+						params:{
+							subResource:'score',
+							testId:'@id'
+						},
+						data:null
 					}
 				});
 		return TestResource;

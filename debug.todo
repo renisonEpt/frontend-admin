@@ -9,6 +9,8 @@ functionality road map
  ✔ delete test @done (16-05-29 22:12)
  ☐ copy test
  ☐ go back
- ☐ start test
+ ✔ start test @done (16-05-30 18:31)
+ ✔ stop test @done (16-05-30 18:51)
+ ☐ integration with student side
  ☐ score & report generation
- ☐ 
+
