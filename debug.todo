@@ -11,6 +11,10 @@ functionality road map
  ☐ go back
  ✔ start test @done (16-05-30 18:31)
  ✔ stop test @done (16-05-30 18:51)
- ☐ integration with student side
+ ✔ integration with student side @done (16-06-01 21:20)
  ☐ score & report generation
+ ☐ session id generator for relogging in
+ ☐ test view student answer
+ ☐ student connection status
+ ☐ Admin authentication (for protected resources)
 
