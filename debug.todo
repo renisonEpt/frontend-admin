@@ -12,6 +12,10 @@ functionality road map
  ✔ start test @done (16-05-30 18:31)
  ✔ stop test @done (16-05-30 18:51)
  ✔ integration with student side @done (16-06-01 21:20)
+ ☐ packaging script encountered a problem where minifying js would destroy angular dependency resolvation
+   * problem before was related to BaseService, where I did not use the ["dep",function("dep")] format
+   * the problem I am having now seems very similar
+   * one possible resolution is that we trace all the dependencies TestController is having, since that is the one that's not initializing
  ☐ score & report generation
  ☐ session id generator for relogging in
  ☐ test view student answer

@@ -181,11 +181,6 @@ module.exports = function makeWebpackConfig(options) {
     // attempt to avoid relative path when importing, but failed
     root: [
       path.resolve(__dirname, './src/'),
-      path.resolve(__dirname, './src/directives'),
-      path.resolve(__dirname, './src/services'),
-      path.resolve(__dirname, './src/lib'),
-      path.resolve(__dirname, './src/features'),
-      path.resolve(__dirname, './src/constants'),
       path.resolve(__dirname, 'node_modules/')
     ],
     // moduleDirectories:['directives','services','lib','features','constants'],
@@ -228,7 +223,7 @@ module.exports = function makeWebpackConfig(options) {
         inject: 'body',
         minify: {
           // see https://github.com/kangax/html-minifier#options-quick-reference
-          minifyJS: BUILD,
+          // minifyJS: BUILD,
           minifyCSS: BUILD,
           removeCommentsFromCDATA: BUILD,
           removeComments: BUILD
@@ -239,19 +234,20 @@ module.exports = function makeWebpackConfig(options) {
 
   // Add build specific plugins
   if (BUILD) {
-    config.plugins.push(
+    // debug, do not minify
+    // config.plugins.push(
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
       // Only emit files when there are no errors
-      new webpack.NoErrorsPlugin(),
+      // new webpack.NoErrorsPlugin(),
 
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#dedupeplugin
       // Dedupe modules in the output
-      new webpack.optimize.DedupePlugin(),
+      // new webpack.optimize.DedupePlugin(),
 
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
       // Minify all javascript, switch loaders to minimizing mode
-      new webpack.optimize.UglifyJsPlugin()
-    )
+      // new webpack.optimize.UglifyJsPlugin()
+    // )
   }
 
   /**
