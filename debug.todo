@@ -17,8 +17,18 @@ functionality road map
    * the problem I am having now seems very similar
    * one possible resolution is that we trace all the dependencies TestController is having, since that is the one that's not initializing
  ☐ score & report generation
- ☐ session id generator for relogging in
+   // for each test session, cast the student obj to objectnode, concatenate the keys with other fields, such as category score, overall score, total test score
+ ☐ make copy of tests
+ ☐ learn how to write test cases
+ ☐ Admin authentication (for protected resources)
+   ☐ static password
  ☐ test view student answer
  ☐ student connection status
- ☐ Admin authentication (for protected resources)
-
+ ☐ loading bar
+ ☐ css for editing, show a pen on hover
+ ☐ deploy scripts
+   - refactor base url
+   - not a priority
+ ☐ session id generator for relogging in
+   - not a priority, wifi setting is locked, so there is no need to worry.
+   - also make sure session is refreshed every 10min

@@ -51,6 +51,16 @@ export default angular.module('eptAdmin.service.test',[core,'ngResource'])
 							testId:'@id'
 						},
 						data:null
+					},
+					generateReport:{
+						method:'GET',
+						params:{
+							subResource:'report',
+							testId:'@id'
+						},
+						isArray:true,
+						data:null, //must specify data so that Content-Type header can be included
+						headers:{'Content-Type':'application/json'}
 					}
 				});
 		return TestResource;

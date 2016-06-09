@@ -1,26 +1,28 @@
-TestController.$inject  = ["$rootScope",'$scope', "$stateParams", "$state","$q","TestService","$cookies"];
+TestController.$inject  = ['$rootScope','$scope', '$stateParams',
+ '$state','$q','TestService','$cookies','UtilService'];
 
-export default function TestController($rootScope,$scope, $stateParams,$state,$q,TestService,$cookies) {
+export default function TestController($rootScope,$scope, $stateParams,
+	$state,$q,TestService,$cookies, UtilService) {
 	var defaultTest = {
 						name:'Untitled Test-'
-							+ new Date().toISOString().slice(0, 10),
+							+ UtilService.formatDate(new Date()),
 						description:'Add your description here...'
 					};
 	$scope.testEditActions = [{
-		class:"",
-		iconClass:"fa fa-trash",
+		class:'',
+		iconClass:'fa fa-trash',
 		onAction:onTestDeleted
 	},
 	{
-		class:"",
-		iconClass:"fa fa-copy",
+		class:'',
+		iconClass:'fa fa-copy',
 		onAction:function(){
-			console.log("copy action")
+			console.log('copy action')
 		}
 	}];
 
 	$scope.seeDetail = function(test){
-		$state.go("testDetail",{
+		$state.go('testDetail',{
 			testId:test.id
 		});
 	};
@@ -36,6 +38,15 @@ export default function TestController($rootScope,$scope, $stateParams,$state,$q
 		$event.stopPropagation();
 		TestService.scoreTest({
 			id:test.id
+		})
+		.$promise
+		.then(function (){
+			return TestService.generateReport({
+				id:test.id
+			}).$promise;
+		})
+		.then(function (reportData){
+			UtilService.downloadAsCsv(getReportName(test.name),reportData);
 		});
 	};
 	$scope.toggleTestStatus = function(test,isStart,$event){
@@ -54,6 +65,7 @@ export default function TestController($rootScope,$scope, $stateParams,$state,$q
 				test.active = isStart;
 			});
 	};
+
 	function onTestDeleted (test){
 		return TestService.remove({
 			id:test.id
@@ -69,5 +81,10 @@ export default function TestController($rootScope,$scope, $stateParams,$state,$q
 		$scope.tests = tests;
 	}).catch(function(response){
 		console.log('Error occurred getting test, aborting',response);
-	})
+	});
+
+	function getReportName(testName){
+		return testName+ ' Report ' 
+				+ UtilService.formatDate(new Date()) + '.csv';
+	}
  }
