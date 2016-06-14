@@ -193,11 +193,10 @@ module.exports = function makeWebpackConfig(options) {
    * List: http://webpack.github.io/docs/list-of-plugins.html
    */
   config.plugins = [
-    // new webpack.ProvidePlugin({
-    //   'window.jQuery': 'jquery'
-    // }),
     new webpack.ProvidePlugin({
-      '$': 'jquery'
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
     }),
     // Reference: https://github.com/webpack/extract-text-webpack-plugin
     // Extract css files

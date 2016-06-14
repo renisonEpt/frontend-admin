@@ -16,9 +16,10 @@ functionality road map
    * problem before was related to BaseService, where I did not use the ["dep",function("dep")] format
    * the problem I am having now seems very similar
    * one possible resolution is that we trace all the dependencies TestController is having, since that is the one that's not initializing
- ☐ score & report generation
+ ✔ score & report generation @done (16-06-13 23:38)
    // for each test session, cast the student obj to objectnode, concatenate the keys with other fields, such as category score, overall score, total test score
  ☐ make copy of tests
+ ☐ toolbar creating test components have problems
  ☐ learn how to write test cases
  ☐ Admin authentication (for protected resources)
    ☐ static password
