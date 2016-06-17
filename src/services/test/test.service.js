@@ -61,6 +61,12 @@ export default angular.module('eptAdmin.service.test',[core,'ngResource'])
 						isArray:true,
 						data:null, //must specify data so that Content-Type header can be included
 						headers:{'Content-Type':'application/json'}
+					},
+					copyTest: {
+						method:'POST',
+						params:{
+							subResource:'copy'
+						}
 					}
 				});
 		return TestResource;

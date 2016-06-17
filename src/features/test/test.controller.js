@@ -1,8 +1,8 @@
 TestController.$inject  = ['$rootScope','$scope', '$stateParams',
- '$state','$q','TestService','$cookies','UtilService'];
+ '$state','$q','TestService','$cookies','UtilService','BaseToastService','BaseModalService'];
 
 export default function TestController($rootScope,$scope, $stateParams,
-	$state,$q,TestService,$cookies, UtilService) {
+	$state,$q,TestService,$cookies, UtilService,BaseToastService,BaseModalService) {
 	var defaultTest = {
 						name:'Untitled Test-'
 							+ UtilService.formatDate(new Date()),
@@ -16,9 +16,7 @@ export default function TestController($rootScope,$scope, $stateParams,
 	{
 		class:'',
 		iconClass:'fa fa-copy',
-		onAction:function(){
-			console.log('copy action')
-		}
+		onAction:onTestCopied
 	}];
 
 	$scope.seeDetail = function(test){
@@ -46,6 +44,9 @@ export default function TestController($rootScope,$scope, $stateParams,
 			}).$promise;
 		})
 		.then(function (reportData){
+			if(reportData.length === 0){
+				BaseToastService.warn('No one has written the test yet, no report generated.','No Report');
+			}
 			UtilService.downloadAsCsv(getReportName(test.name),reportData);
 		});
 	};
@@ -67,15 +68,39 @@ export default function TestController($rootScope,$scope, $stateParams,
 	};
 
 	function onTestDeleted (test){
-		return TestService.remove({
-			id:test.id
-		})
-		.$promise
-		.then(function(){
-			var index = $scope.tests.indexOf(test);
-			$scope.tests.splice(index,1);
+		return BaseModalService.confirm({
+			modalBody:'All the data will be lost, are you sure to delete?',
+			modalTitle:'Dangerous Action'
+		}).then(function(result){
+			if(result === true){
+				return performDelete();
+			}
 		});
+
+		function performDelete(){
+			TestService.remove({
+				id:test.id
+			})
+			.$promise
+			.then(function(){
+				var index = $scope.tests.indexOf(test);
+				$scope.tests.splice(index,1);
+			});
+		}
 	}
+	function onTestCopied (test){
+		return TestService.copyTest(test)
+			.$promise
+			.then(function(copiedTest){
+				$scope.tests.push(copiedTest);
+			})
+			.catch(function(error){
+				console.log(error);
+				BaseToastService.error('Something went wrong when copying test');
+			});
+	}
+
+	// initialize
 	TestService.query().$promise.then(function(tests){
 		console.log('tests',tests);
 		$scope.tests = tests;

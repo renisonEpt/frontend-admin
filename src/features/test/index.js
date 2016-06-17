@@ -9,10 +9,11 @@ import TestService from '../../services/test/test.service.js';
 import CategoryService from '../../services/category/category.service.js';
 import TestComponentService from '../../services/testComponent/testComponent.service.js';
 import UtilService from '../../services/util/util.service.js';
-import ngCookies from "angular-cookies";
-import "./test-page.less"; //load styles
-import "./test-table.less"; //load styles
-export default angular.module('EPTAdmin.test', [uirouter,ngCookies,UtilService,TestService,CategoryService,TestComponentService])
+import ngCookies from 'angular-cookies';
+import core from 'renison-ept-frontend-core';
+import './test-page.less'; //load styles
+import './test-table.less'; //load styles
+export default angular.module('EPTAdmin.test', [core,uirouter,ngCookies,UtilService,TestService,CategoryService,TestComponentService])
   .config(routing)
   .controller('TestController', TestController)
   .controller('TestDetailController',TestDetailController)

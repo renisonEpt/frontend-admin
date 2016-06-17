@@ -1,10 +1,12 @@
+var _ = require('lodash');
 CategoryDetailController.$inject  = ['$rootScope','$scope', 
 	'$stateParams', '$state','$q','BaseService','$cookies','CategoryService','TestComponentService','category','testComponents'];
 
 export default function CategoryDetailController($rootScope,$scope, 
 	$stateParams,$state,$q,BaseService,$cookies,CategoryService,TestComponentService,category,testComponents) {
 	$scope.category = category;
-	$scope.testComponents = testComponents;
+	$scope.testComponents = _.sortBy(testComponents,'ordering');
+
 	$scope.onComponentCreated = function(component){
 		component.categoryId = $scope.category.id;
 		CategoryService

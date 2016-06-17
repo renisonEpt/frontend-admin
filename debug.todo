@@ -12,18 +12,20 @@ functionality road map
  ✔ start test @done (16-05-30 18:31)
  ✔ stop test @done (16-05-30 18:51)
  ✔ integration with student side @done (16-06-01 21:20)
- ☐ packaging script encountered a problem where minifying js would destroy angular dependency resolvation
+ ✔ packaging script encountered a problem where minifying js would destroy angular dependency resolvation @done (16-06-17 01:09)
    * problem before was related to BaseService, where I did not use the ["dep",function("dep")] format
    * the problem I am having now seems very similar
    * one possible resolution is that we trace all the dependencies TestController is having, since that is the one that's not initializing
+   * solved by removing the '-p' flag in package.json
  ✔ score & report generation @done (16-06-13 23:38)
    // for each test session, cast the student obj to objectnode, concatenate the keys with other fields, such as category score, overall score, total test score
- ☐ make copy of tests
- ☐ toolbar creating test components have problems
+ ✔ make copy of tests @done (16-06-17 00:46)
+ ✔ indicate no student has written test yet. @done (16-06-17 00:27)
+ ✔ toolbar creating test components have problems @done (16-06-17 01:10)
  ☐ learn how to write test cases
  ☐ Admin authentication (for protected resources)
    ☐ static password
- ☐ test view student answer
+ ☐ test view tudent answer
  ☐ student connection status
  ☐ loading bar
  ☐ css for editing, show a pen on hover
