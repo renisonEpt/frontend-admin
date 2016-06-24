@@ -1,8 +1,8 @@
 TestController.$inject  = ['$rootScope','$scope', '$stateParams',
- '$state','$q','TestService','$cookies','UtilService','BaseToastService','BaseModalService'];
+ '$state','$q','TestService','$cookies','UtilService','BaseToastService','BaseModalService','tests'];
 
 export default function TestController($rootScope,$scope, $stateParams,
-	$state,$q,TestService,$cookies, UtilService,BaseToastService,BaseModalService) {
+	$state,$q,TestService,$cookies, UtilService,BaseToastService,BaseModalService,tests) {
 	var defaultTest = {
 						name:'Untitled Test-'
 							+ UtilService.formatDate(new Date()),
@@ -100,13 +100,7 @@ export default function TestController($rootScope,$scope, $stateParams,
 			});
 	}
 
-	// initialize
-	TestService.query().$promise.then(function(tests){
-		console.log('tests',tests);
-		$scope.tests = tests;
-	}).catch(function(response){
-		console.log('Error occurred getting test, aborting',response);
-	});
+	$scope.tests = tests;
 
 	function getReportName(testName){
 		return testName+ ' Report ' 

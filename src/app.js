@@ -8,7 +8,7 @@ import uirouter from 'angular-ui-router'; // by  default importing angular-ui-ro
 // so that we can directly include it in angular.module
 
 import routing from './app.config';
-import test from "./features/test"
-
-  angular.module('EPTAdmin', [uirouter, core,test])
-  	.config(routing);
+import test from "./features/test";
+import auth from "./features/auth";
+angular.module('EPTAdmin', [uirouter, core,test,auth])
+	.config(routing);

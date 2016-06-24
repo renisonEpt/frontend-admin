@@ -1,12 +1,23 @@
+import '../auth'; // depends on auth to
 routes.$inject = ['$stateProvider'];
 
 export default function routes($stateProvider) {
   $stateProvider
     .state('test', {
+      parent:'Auth',
       url: '/test',
-      template: require('./test.html')
+      template: require('./test.html'),
+      resolve:{
+        'tests':['TestService',function(TestService){
+            // initialize
+            return TestService.query().$promise;
+         }]
+      },
+      controller:'TestController'
+
     })
     .state('testDetail',{
+      parent:'Auth',
       url:'/test/:testId/detail',
       template:require('./test-detail/test-detail.html'),
       controller:"TestDetailController",
@@ -26,6 +37,7 @@ export default function routes($stateProvider) {
       }
     })
     .state('categoryDetail',{
+      parent:'Auth',
     	url:'/categories/:categoryId/detail',
     	template:require('./category-detail/category-detail.html'),
       controller:"CategoryDetailController",
