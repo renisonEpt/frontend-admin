@@ -1,12 +1,20 @@
 var _ = require('lodash');
 CategoryDetailController.$inject  = ['$rootScope','$scope', 
-	'$stateParams', '$state','$q','BaseService','$cookies','CategoryService','TestComponentService','category','testComponents'];
+	'$stateParams', '$state','$q','BaseService','$cookies','CategoryService',
+	'TestComponentService','category','testComponents','BaseToastService'];
 
 export default function CategoryDetailController($rootScope,$scope, 
-	$stateParams,$state,$q,BaseService,$cookies,CategoryService,TestComponentService,category,testComponents) {
+	$stateParams,$state,$q,BaseService,$cookies,CategoryService,TestComponentService,
+	category,testComponents,BaseToastService) {
 	$scope.category = category;
 	$scope.testComponents = _.sortBy(testComponents,'ordering');
 
+	$scope.goBack = function(){
+		if($rootScope.previousState.name) {
+			$state.go($rootScope.previousState.name,$rootScope.previousState.params);
+		}
+		else $state.go('test');
+	};
 	$scope.onComponentCreated = function(component){
 		component.categoryId = $scope.category.id;
 		CategoryService
@@ -15,7 +23,8 @@ export default function CategoryDetailController($rootScope,$scope,
 			.then(function(responseComponent){
 				component.id = responseComponent.id; // we update the id of component
 			})
-			.then(syncComponentOrder);
+			.then(syncComponentOrder)
+			.catch(showErrorMsg);
 	};
 	function syncComponentOrder(){
 		// sync all the ordering of components
@@ -57,12 +66,21 @@ export default function CategoryDetailController($rootScope,$scope,
 						}
 					}
 				}
-			})
+			}).catch(showErrorMsg);
 	};
 	$scope.onComponentDeleted = function(component){
 		TestComponentService.remove({
 			id:component.id
 		}).$promise
-		.then(syncComponentOrder);
+		.then(syncComponentOrder)
+		.catch(showErrorMsg);
 	};
+
+	function showErrorMsg(response){
+		var errorMsg = 'Oops, a technical just occurred.'
+		if(response && response.data && response.data.errorMessage){
+			errorMsg = response.data.errorMessage;
+		}
+		BaseToastService.error(errorMsg);
+	}
 }

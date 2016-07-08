@@ -1,9 +1,9 @@
 <div class="container page-wrapper">
 	<div class="ept-test-admin-page test-detail">
-		<header class="page-header  clear-fix">
+		<header class="page-header clear-fix">
 			<span class="back">
 			<i class="ept-back-button fa fa-arrow-left" ng-click="goBack()"></i></span>
-			<h3 class="page-title" editable-text="test.name">
+			<h3 class="page-title as-editable" editable-text="test.name ">
 				{{test.name}}
 			</h3>
 			<ept-action-group 
@@ -14,7 +14,7 @@
 				<h4 class="section-title">
 					Description
 				</h4>
-				<div class="section-content">
+				<div class="section-content as-editable">
 					<editable-text-angular content="test.description"></editable-text-angular>
 				</div>
 			</section>

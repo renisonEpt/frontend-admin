@@ -7,8 +7,8 @@ functionality road map
  ✔ delete question @done (16-05-29 21:18)
  ✔ delete category @done (16-05-29 22:12)
  ✔ delete test @done (16-05-29 22:12)
- ☐ copy test
- ☐ go back
+ ✔ copy test @done (16-07-07 18:52)
+ ✔ go back @done (16-07-07 18:52)
  ✔ start test @done (16-05-30 18:31)
  ✔ stop test @done (16-05-30 18:51)
  ✔ integration with student side @done (16-06-01 21:20)
@@ -23,12 +23,18 @@ functionality road map
  ✔ indicate no student has written test yet. @done (16-06-17 00:27)
  ✔ toolbar creating test components have problems @done (16-06-17 01:10)
  ☐ learn how to write test cases
- ☐ Admin authentication (for protected resources)
-   ☐ static password
- ☐ test view tudent answer
+ ✔ Admin authentication (for protected resources) @done (16-06-28 21:01)
+   ✔ static password @done (16-06-28 21:01)
+ ☐ test view Student answer
  ☐ student connection status
+ ✔ Remove free_text @done (16-07-07 20:09)
+ ✔ cannot remove answer!! @done (16-06-28 21:46)
+ ✔ Back button from category-detail to test-detail @done (16-07-07 18:53)
  ☐ loading bar
- ☐ css for editing, show a pen on hover
+ ✔ css for editing, show a pen on hover @done (16-07-07 18:53)
+ ✔ !!error not shown if request returns 403 forbidden @done (16-07-07 20:20)
+ ✔ !!error not shown if any request fails @done (16-07-07 20:20)
+ ☐ Category time editting should be inline-block
  ☐ deploy scripts
    - refactor base url
    - not a priority

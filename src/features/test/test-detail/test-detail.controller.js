@@ -1,10 +1,11 @@
 import './test-detail.less';
 TestDetailController.$inject  = ['$rootScope','$scope', 
 	'$stateParams', '$state','$q','BaseService','$cookies','TestService','CategoryService',
-	'test','categories'];
+	'test','categories','BaseToastService'];
 
 export default function TestDetailController($rootScope,$scope, 
-	$stateParams,$state,$q,BaseService,$cookies,TestService,CategoryService,test,categories) {
+	$stateParams,$state,$q,BaseService,$cookies,TestService,
+	CategoryService,test,categories,BaseToastService) {
 
 	$scope.toolbarActions = [{
 		iconClass:'fa fa-plus',
@@ -50,7 +51,7 @@ export default function TestDetailController($rootScope,$scope,
 		.then(function(){
 			var index = $scope.categories.indexOf(category);
 			$scope.categories.splice(index);
-		});
+		}).catch(showErrorMsg);
 	};
 	$scope.saveCategory = function(category){
 		CategoryService.save(category);
@@ -61,7 +62,7 @@ export default function TestDetailController($rootScope,$scope,
 			.$promise
 			.then(function(category){
 				$scope.categories.push(category);
-			});
+			}).catch(showErrorMsg);
 	}
 	function getDefaultCategory(){
 		var ordering = 1;
@@ -75,5 +76,13 @@ export default function TestDetailController($rootScope,$scope,
 			ordering:ordering,
 			timeAllowed:5
 		};
+	}
+
+	function showErrorMsg(response){
+		var errorMsg = 'Oops, a technical just occurred.'
+		if(response && response.data && response.data.errorMessage){
+			errorMsg = response.data.errorMessage;
+		}
+		BaseToastService.error(errorMsg);
 	}
  }

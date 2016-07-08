@@ -30,7 +30,7 @@ export default function TestController($rootScope,$scope, $stateParams,
 				.$promise
 				.then(function(test){
 					$scope.seeDetail(test);
-				});
+				}).catch(showErrorMsg);
 	};
 	$scope.scoreTest = function(test,$event){
 		$event.stopPropagation();
@@ -48,7 +48,7 @@ export default function TestController($rootScope,$scope, $stateParams,
 				BaseToastService.warn('No one has written the test yet, no report generated.','No Report');
 			}
 			UtilService.downloadAsCsv(getReportName(test.name),reportData);
-		});
+		}).catch(showErrorMsg);
 	};
 	$scope.toggleTestStatus = function(test,isStart,$event){
 		$event.stopPropagation();
@@ -64,7 +64,7 @@ export default function TestController($rootScope,$scope, $stateParams,
 					});
 				}
 				test.active = isStart;
-			});
+			}).catch(showErrorMsg);
 	};
 
 	function onTestDeleted (test){
@@ -85,7 +85,7 @@ export default function TestController($rootScope,$scope, $stateParams,
 			.then(function(){
 				var index = $scope.tests.indexOf(test);
 				$scope.tests.splice(index,1);
-			});
+			}).catch(showErrorMsg);
 		}
 	}
 	function onTestCopied (test){
@@ -105,5 +105,13 @@ export default function TestController($rootScope,$scope, $stateParams,
 	function getReportName(testName){
 		return testName+ ' Report ' 
 				+ UtilService.formatDate(new Date()) + '.csv';
+	}
+
+	function showErrorMsg(response){
+		var errorMsg = 'Oops, a technical just occurred.'
+		if(response && response.data && response.data.errorMessage){
+			errorMsg = response.data.errorMessage;
+		}
+		BaseToastService.error(errorMsg);
 	}
  }

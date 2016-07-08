@@ -11,4 +11,13 @@ import routing from './app.config';
 import test from "./features/test";
 import auth from "./features/auth";
 angular.module('EPTAdmin', [uirouter, core,test,auth])
-	.config(routing);
+	.config(routing)
+    .run(['$rootScope',function($rootScope){
+        $rootScope.currentState;
+        $rootScope.$on('$stateChangeSuccess', function(ev, to, toParams, from, fromParams) {
+            $rootScope.previousState = {
+                name: from.name,
+                params:fromParams
+            };
+        });
+    }])
