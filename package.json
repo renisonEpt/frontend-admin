@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Admin portal for EPT. Where test takes place.",
   "scripts": {
-    "build": "webpack --config webpack.build.js --bail ",
-    "dev": "node node_modules/.bin/webpack-dev-server --history-api-fallback --hot --inline --progress --port=1444",
+    "build": "base_url='http://localhost:8080' webpack --config webpack.build.js --bail",
+    "dev": "base_url='http://localhost:8080' node node_modules/.bin/webpack-dev-server --history-api-fallback --hot --inline --progress --port=1444",
     "test": "karma start",
     "test:live": "karma start --auto-watch --no-single-run"
   },

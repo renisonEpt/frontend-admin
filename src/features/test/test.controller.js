@@ -66,7 +66,9 @@ export default function TestController($rootScope,$scope, $stateParams,
 				test.active = isStart;
 			}).catch(showErrorMsg);
 	};
-
+	$scope.displayAsTime = function(timestamp){
+		return new Date(timestamp).toLocaleDateString();
+	};
 	function onTestDeleted (test){
 		return BaseModalService.confirm({
 			modalBody:'All the data will be lost, are you sure to delete?',

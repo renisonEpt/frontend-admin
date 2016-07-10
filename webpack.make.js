@@ -203,8 +203,9 @@ module.exports = function makeWebpackConfig(options) {
     // Disabled when in test mode or not in build mode
     new ExtractTextPlugin('[name].[hash].css', {
       disable: !BUILD || TEST
-    })
+    }),
     
+    new webpack.EnvironmentPlugin(['base_url'])
     // for support bower only
     // ,
     // new webpack.ResolverPlugin(

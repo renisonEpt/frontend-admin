@@ -14,8 +14,8 @@
                     <tr>
                         <td>Name</td>
                         <td>Report</td>
-                        <td>Last Modified</td>
-                        <td>Comment</td>
+                        <td>Time Created</td>
+                        <td>Description</td>
                         <td></td>
                     </tr>
                 </thead>
@@ -24,11 +24,13 @@
                         <td><i ng-class="{'fa fa-circle':test.active,'fa fa-circle-o':!test.active}" style="color:green"></i>
                         {{test.name}}</td>
                         <td>
-                            {{test.reportTime}}
+                            <!-- TODO {{test.reportTime}}  -->
                             <a ng-click="scoreTest(test,$event)">score test</a>
                         </td>
-                        <td>{{test.updateTimeStamp}}</td>
-                        <td class="comment">{{test.comment}}</td>
+                        <td>{{displayAsTime(test.createTimestamp)}}</td>
+                        <td class="comment">
+                            <div ng-bind-html="test.description"></div>
+                        </td>
                         <td>
                             <button class="btn btn-small start-test" ng-class="{'btn-success':!test.active,'btn-danger':test.active}" ng-click="toggleTestStatus(test,!test.active, $event)">{{test.active?'stop':'start'}}</button>
 
