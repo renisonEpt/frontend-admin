@@ -23,7 +23,7 @@
 				Categories
 			</h4>
 			<div class="section-content">
-				<ept-category category="category" ng-repeat="category in categories" ng-class="'darken-on-hover'" on-changed='saveCategory(category)' on-deleted="onCategoryDeleted(category)" actions="categoryActions">
+				<ept-category category="category" ng-repeat="category in categories" ng-class="'darken-on-hover'" on-changed='saveCategory(category,oldCategory)' on-deleted="onCategoryDeleted(category)" actions="categoryActions">
 				</ept-category>
 				<ept-toolbar actions="toolbarActions"></ept-toolbar>
 			</div>

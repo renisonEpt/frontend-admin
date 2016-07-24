@@ -29,6 +29,13 @@ export default angular.module('eptAdmin.service.test',[core,'ngResource'])
 							testId:'@testId'
 						}
 					},
+					syncCategoryOrder:{
+						method:'PUT',
+						params:{
+							subResource:'categoryOrder'
+						},
+						isArray:true
+					},
 					query:{
 						method:'GET',
 						isArray:true,

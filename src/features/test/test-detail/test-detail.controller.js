@@ -15,6 +15,12 @@ export default function TestDetailController($rootScope,$scope,
 	$scope.categoryActions = [{
 		iconClass:'fa fa-pencil',
 		onAction:goCategoryDetail
+	},{
+		iconClass:'fa fa-chevron-up',
+		onAction:moveCategoryUp
+	},{
+		iconClass:'fa fa-chevron-down',
+		onAction:moveCategoryDown
 	}];
 	$scope.test = test;
 	$scope.categories = categories;
@@ -39,6 +45,7 @@ export default function TestDetailController($rootScope,$scope,
 			$scope.test.$save();
 		}
 	});
+
 	$scope.onCategoryDeleted = function(category){
 		var confirmed = window.confirm('Are you sure to delete the category? All questins will be deleted');
 		if(!confirmed){
@@ -50,10 +57,14 @@ export default function TestDetailController($rootScope,$scope,
 		.$promise
 		.then(function(){
 			var index = $scope.categories.indexOf(category);
-			$scope.categories.splice(index);
+			$scope.categories.splice(index,1);
 		}).catch(showErrorMsg);
 	};
-	$scope.saveCategory = function(category){
+	$scope.saveCategory = function(category,oldCategory){
+		// do nothing if ordering changes
+		// we have syncCategoryOrder to handle ordering changes
+		// no need to resync changes here
+		if(oldCategory.ordering !== category.ordering) return; 
 		CategoryService.save(category);
 	};
 	function createCategory(){
@@ -64,6 +75,40 @@ export default function TestDetailController($rootScope,$scope,
 				$scope.categories.push(category);
 			}).catch(showErrorMsg);
 	}
+
+	function syncCategoryOrder(categories){
+		var orderMap = _.map(categories,function(item,index){
+			item.ordering = index+1;
+			return {
+				'categoryId':item.id,
+				'ordering':index+1 //change from 0 based to 1 based
+			};
+		});
+		TestService
+			.syncCategoryOrder(orderMap)
+			.catch(showErrorMsg);
+	}
+
+	function moveCategory(category,isUp){
+		var idx = $scope.categories.indexOf(category);
+		if(isUp && idx == 0){
+			return;
+		}else if(!isUp && idx == $scope.categories.length-1){
+			return;
+		}
+		$scope.categories.splice(idx,1);
+		$scope.categories.splice(isUp?idx-1:idx+1,0,category);
+		syncCategoryOrder($scope.categories);
+	}
+
+	function moveCategoryUp(category){
+		moveCategory(category,true);
+	}
+
+	function moveCategoryDown(category){
+		moveCategory(category,false);
+	}
+
 	function getDefaultCategory(){
 		var ordering = 1;
 		var categoryLength = $scope.categories.length;
