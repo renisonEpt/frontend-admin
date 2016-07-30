@@ -56,5 +56,33 @@ export default function routes($stateProvider) {
         }]
       }
     })
+    .state('reviewExams',{
+      parent:'Auth',
+      url:'/test/:testId/reviewExams',
+      template:require('./review-exams/review-exams.html'),
+      controller:'ReviewExamsController',
+      resolve:{
+        // 'scoredSessions':['TestService','$stateParams',function(TestService,$stateParams){
+        //   var test =  TestService.get({
+        //     testId:$stateParams.testId
+        //   });
+        //   return test.$promise;
+        // }],
+      }
+    })
+    .state('examDetail',{
+      parent:'Auth',
+      url:'/scoredSession/:scoredSessionId/exam',
+      template:require('./exam-detail/exam-detail.html'),
+      controller:'ExamDetailController',
+      resolve:{
+        // 'scoredSessions':['TestService','$stateParams',function(TestService,$stateParams){
+        //   var test =  TestService.get({
+        //     testId:$stateParams.testId
+        //   });
+        //   return test.$promise;
+        // }],
+      }
+    })
     ;
 };

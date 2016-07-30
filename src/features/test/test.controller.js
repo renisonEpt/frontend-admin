@@ -3,6 +3,7 @@ TestController.$inject  = ['$rootScope','$scope', '$stateParams',
 
 export default function TestController($rootScope,$scope, $stateParams,
 	$state,$q,TestService,$cookies, UtilService,BaseToastService,BaseModalService,tests) {
+	$scope.tests = tests;
 	var defaultTest = {
 						name:'Untitled Test-'
 							+ UtilService.formatDate(new Date()),
@@ -17,6 +18,10 @@ export default function TestController($rootScope,$scope, $stateParams,
 		class:'',
 		iconClass:'fa fa-copy',
 		onAction:onTestCopied
+	},{
+		class:'',
+		iconClass:'fa fa-eye',
+		onAction:onReviewExams
 	}];
 
 	$scope.seeDetail = function(test){
@@ -90,6 +95,7 @@ export default function TestController($rootScope,$scope, $stateParams,
 			}).catch(showErrorMsg);
 		}
 	}
+
 	function onTestCopied (test){
 		return TestService.copyTest(test)
 			.$promise
@@ -102,7 +108,9 @@ export default function TestController($rootScope,$scope, $stateParams,
 			});
 	}
 
-	$scope.tests = tests;
+	function onReviewExams(test){
+		$state.go('reviewExams',{testId:test.id})
+	}
 
 	function getReportName(testName){
 		return testName+ ' Report ' 
