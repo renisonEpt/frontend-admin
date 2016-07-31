@@ -15,6 +15,13 @@ export default angular.module('eptAdmin.service.test',[core,'ngResource'])
 							'Content-Type':'application/json'
 						}
 					},
+					getScoredSessions:{
+						method:'GET',
+						params:{
+							subResource:'scoredSessions'
+						},
+						isArray:true
+					},
 					getCategories:{
 						method:'GET',
 						params:{

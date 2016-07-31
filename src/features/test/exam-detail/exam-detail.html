@@ -8,6 +8,8 @@
     </header>
     <div class="container">
         <div ng-repeat="category in exam.categories">
+            <h2>{{category.ordering}}. {{category.name}}</h2>
+            <hr>
             <ept-test-component ng-repeat="component in category.testComponents | orderBy:'ordering'" component="component" component-num="component.questionIndex" highlight-correct="true">
             </ept-test-component>
         </div>    

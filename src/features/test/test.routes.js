@@ -62,26 +62,27 @@ export default function routes($stateProvider) {
       template:require('./review-exams/review-exams.html'),
       controller:'ReviewExamsController',
       resolve:{
-        // 'scoredSessions':['TestService','$stateParams',function(TestService,$stateParams){
-        //   var test =  TestService.get({
-        //     testId:$stateParams.testId
-        //   });
-        //   return test.$promise;
-        // }],
+        'scoredSessions':['TestService','$stateParams',function(TestService,$stateParams){
+          var scoredSessions =  TestService.getScoredSessions({
+            testId:$stateParams.testId
+          });
+          return scoredSessions.$promise;
+        }],
       }
     })
     .state('examDetail',{
       parent:'Auth',
-      url:'/scoredSession/:scoredSessionId/exam',
+      url:'/testSession/:testSessionId/exam',
       template:require('./exam-detail/exam-detail.html'),
       controller:'ExamDetailController',
       resolve:{
-        // 'scoredSessions':['TestService','$stateParams',function(TestService,$stateParams){
-        //   var test =  TestService.get({
-        //     testId:$stateParams.testId
-        //   });
-        //   return test.$promise;
-        // }],
+        'exam':['TestSessionService','$stateParams',
+          function(TestSessionService,$stateParams){
+            var exam =  TestSessionService.getExam({
+              id:$stateParams.testSessionId
+            });
+            return exam.$promise;
+          }],
       }
     })
     ;
