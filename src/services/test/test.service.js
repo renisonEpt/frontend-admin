@@ -22,6 +22,14 @@ export default angular.module('eptAdmin.service.test',[core,'ngResource'])
 						},
 						isArray:true
 					},
+					getSessions:{
+						method:'GET',
+						params:{
+							testId:'@id',
+							subResource:'sessions'
+						},
+						isArray:true
+					},
 					getCategories:{
 						method:'GET',
 						params:{

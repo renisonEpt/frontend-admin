@@ -26,7 +26,8 @@ functionality road map
  ✔ Admin authentication (for protected resources) @done (16-06-28 21:01)
    ✔ static password @done (16-06-28 21:01)
  ☐ test view Student answer
- ☐ student connection status
+ ✔ student connection status @done (16-08-06 12:33)
+   NOTE NOTE NOTE, angular resource only accepts object and arrays to be returned, not primitive data
  ✔ Remove free_text @done (16-07-07 20:09)
  ✔ cannot remove answer!! @done (16-06-28 21:46)
  ✔ Back button from category-detail to test-detail @done (16-07-07 18:53)
@@ -41,3 +42,12 @@ functionality road map
  ☐ session id generator for relogging in
    - not a priority, wifi setting is locked, so there is no need to worry.
    - also make sure session is refreshed every 10min
+
+ ✔ finished shuffling in test-detail controller, commented out code in category-detail controller, encountered a bug where max call stack size exceeded, from (category.service.js:76) @done (16-08-24 03:16) abandoned the idea of decorated resource
+
+ ☐ trying to resolve deadlock exception by widening the time gap between requests, which seem to cause the problem. Encountered 2 other issues where error toast pops up even when no request fails, also, discovered that shuffling does change component ordering in db, but it does not show up in category-detail view not sure whats wrong
+   turns out that it is not the time issue between requests, I put showErrorMsg in .then() block, 
+   also, there are 2 ordering columns one in question one in test_component, which messes up the serilized json. 
+
+ 
+

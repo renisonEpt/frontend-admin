@@ -1,11 +1,16 @@
 import './test-detail.less';
+
+import ComponentType from 'renison-ept-frontend-core/src/constants/component-type';
+import QuestionType from 'renison-ept-frontend-core/src/constants/question-type';
+
+var _ = require('lodash');
 TestDetailController.$inject  = ['$rootScope','$scope', 
 	'$stateParams', '$state','$q','BaseService','$cookies','TestService','CategoryService',
-	'test','categories','BaseToastService'];
+	'test','categories','BaseToastService','UtilService'];
 
 export default function TestDetailController($rootScope,$scope, 
 	$stateParams,$state,$q,BaseService,$cookies,TestService,
-	CategoryService,test,categories,BaseToastService) {
+	CategoryService,test,categories,BaseToastService,UtilService) {
 
 	$scope.toolbarActions = [{
 		iconClass:'fa fa-plus',
@@ -122,12 +127,45 @@ export default function TestDetailController($rootScope,$scope,
 			timeAllowed:5
 		};
 	}
+	// shuffle all components in between component of type COMP_HTML
+	// e.g. [Q1,Q2,Q3,COMP_HTML,Q4,Q5] => [Q2,Q1,Q3,COMP_HTML,Q5,Q4]
+	// this is neccessary because we'd like to randomize the questions in between 
+	// word blocks, so as to make sure questions following a reading passage does 
+	// not go before the reading passage
+	function shuffleComponents(components){
+		var from = 0;
+		// 
+		for(var i=0;i<=components.length;i++){
+			if(!components[i] || (components[i].componentType === ComponentType.COMP_HTML)){
+				UtilService.shuffleArray(components,from,i);
+				from = i+1;
+			}
+		}
+	};
 
+	// for each category, shuffle its components
+	$scope.shuffleCategories = function (){
+		_.forEach($scope.categories, function(category){
+			CategoryService.getTestComponents({
+				categoryId:category.id
+			})
+			.$promise
+			.then(function(components){
+				shuffleComponents(components);
+				return CategoryService
+					.syncComponentOrder(
+						CategoryService.getComponentOrder(components))
+					.$promise;
+			})
+			.catch(showErrorMsg);
+		});
+	};
 	function showErrorMsg(response){
 		var errorMsg = 'Oops, a technical just occurred.'
 		if(response && response.data && response.data.errorMessage){
 			errorMsg = response.data.errorMessage;
 		}
+		console.log(response);
 		BaseToastService.error(errorMsg);
 	}
  }

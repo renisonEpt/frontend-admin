@@ -32,8 +32,10 @@
                             <div ng-bind-html="test.description"></div>
                         </td>
                         <td>
-                            <button class="btn btn-small start-test" ng-class="{'btn-success':!test.active,'btn-danger':test.active}" ng-click="toggleTestStatus(test,!test.active, $event)">{{test.active?'stop':'start'}}</button>
-
+                            <div>
+                                <a class="btn btn-sm" ng-class="{'btn-success':!test.active,'btn-danger':test.active}" ng-click="toggleTestStatus(test,!test.active, $event)">{{test.active?'stop':'start'}}</a>
+                                <span ng-show="test.active"> <span class="badge badge-info" >{{test.connectedNum}}</span> connected</span>
+                            <div>
                             <ept-action-group 
                             context="test" actions="testEditActions" css-class="'no-float'"></ept-action-group>
                         </td>

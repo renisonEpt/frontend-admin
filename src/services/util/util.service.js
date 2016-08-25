@@ -2,6 +2,7 @@ import angular from 'angular';
 import _ from 'lodash';
 export default angular.module('eptAdmin.service.util',[])
 	.service('UtilService',[function(){
+		var service = this;
 		// given a string filename and an array of array (rows)
 		// perform download csv
 		function exportToCsv(filename, rows) {
@@ -60,7 +61,7 @@ export default angular.module('eptAdmin.service.util',[])
 			});
 			return [header].concat(values);
 		}
-		this.downloadAsCsv = function(fileName,rows) {
+		service.downloadAsCsv = function(fileName,rows) {
 			if(rows.length === 0){
 				return;
 			}
@@ -70,8 +71,23 @@ export default angular.module('eptAdmin.service.util',[])
 				return exportToCsv(fileName,rows);
 			}
 		}
-		this.formatDate = function(date){
+		service.formatDate = function(date){
 			return date.toISOString().slice(0, 10);
+		};
+		// given an array, including indices `from` but excluding `to`
+		// randomly shuffle elements in between,
+		// e.g. shuffleArray([1,2,3,4],0,4) => [4,3,1,2] all elements shuffled
+		service.shuffleArray = function(array,from,to){
+			for (var i = from; i < to; i++) {
+				var r = Math.floor(Math.random()*(to - i)) + i;
+				service.swap(array,i,r);
+			};
+		};
+
+		service.swap = function(array,i,j){
+			var temp = array[i];
+			array[i] = array[j];
+			array[j] =  temp;
 		};
 	}])
 	.name;

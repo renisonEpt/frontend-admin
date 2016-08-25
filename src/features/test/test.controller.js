@@ -1,9 +1,17 @@
-TestController.$inject  = ['$rootScope','$scope', '$stateParams',
- '$state','$q','TestService','$cookies','UtilService','BaseToastService','BaseModalService','tests'];
+TestController.$inject  = ['$rootScope','$scope', 
+'$stateParams', '$interval',
+ '$state','$q','TestService','$cookies','UtilService',
+ 'BaseToastService','BaseModalService','tests'];
 
-export default function TestController($rootScope,$scope, $stateParams,
+export default function TestController($rootScope,$scope, $stateParams, $interval,
 	$state,$q,TestService,$cookies, UtilService,BaseToastService,BaseModalService,tests) {
 	$scope.tests = tests;
+	// so that when page is refreshed, we still monitor active tests
+	for(var i=0;i<$scope.tests.length;i++){
+		if(tests[i].active){
+			monitorConnectedStudent(tests[i]);
+		}
+	}
 	var defaultTest = {
 						name:'Untitled Test-'
 							+ UtilService.formatDate(new Date()),
@@ -69,8 +77,28 @@ export default function TestController($rootScope,$scope, $stateParams,
 					});
 				}
 				test.active = isStart;
+			})
+			.then(function(){
+				if(isStart) monitorConnectedStudent(test);
 			}).catch(showErrorMsg);
 	};
+
+	// check how many students are connected ever so often
+	function monitorConnectedStudent(test){
+		test.connectedNum=0;
+		test.monitorHandle = $interval(function(){
+			var p = TestService.getSessions({
+				id:test.id
+			}).$promise.then(function(data){
+				test.connectedNum = data.length;
+			});
+		},3000);
+	}
+	function cancelMonitoring(test){
+		if(!test.monitorHandle) return;
+		$interval.cancel(test.monitorHandle);
+	}
+
 	$scope.displayAsTime = function(timestamp){
 		return new Date(timestamp).toLocaleDateString();
 	};

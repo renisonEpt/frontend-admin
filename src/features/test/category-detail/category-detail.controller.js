@@ -1,11 +1,14 @@
 var _ = require('lodash');
+import ComponentType from 'renison-ept-frontend-core/src/constants/component-type';
+import QuestionType from 'renison-ept-frontend-core/src/constants/question-type';
+
 CategoryDetailController.$inject  = ['$rootScope','$scope', 
 	'$stateParams', '$state','$q','BaseService','$cookies','CategoryService',
-	'TestComponentService','category','testComponents','BaseToastService'];
+	'TestComponentService','category','testComponents','BaseToastService','UtilService'];
 
 export default function CategoryDetailController($rootScope,$scope, 
 	$stateParams,$state,$q,BaseService,$cookies,CategoryService,TestComponentService,
-	category,testComponents,BaseToastService) {
+	category,testComponents,BaseToastService,UtilService) {
 	$scope.category = category;
 	$scope.testComponents = _.sortBy(testComponents,'ordering');
 
@@ -15,6 +18,19 @@ export default function CategoryDetailController($rootScope,$scope,
 		}
 		else $state.go('test');
 	};
+
+	// TODO to be deleted
+	// $scope.shuffleComponents = function(components){
+	// 	var from = 0;
+	// 	for(var i=0;i<components.length;i++){
+	// 		if(components[i].componentType === ComponentType.COMP_HTML){
+	// 			UtilService.shuffleArray(components,from,i);
+	// 			from = i+1;
+	// 		}
+	// 	}
+	// 	return syncComponentOrder().catch(showErrorMsg);
+	// };
+
 	$scope.onComponentCreated = function(component){
 		component.categoryId = $scope.category.id;
 		CategoryService
@@ -26,16 +42,19 @@ export default function CategoryDetailController($rootScope,$scope,
 			.then(syncComponentOrder)
 			.catch(showErrorMsg);
 	};
-	function syncComponentOrder(){
-		// sync all the ordering of components
-		return CategoryService
-			.syncComponentOrder(getComponentOrder())
-			.$promise;
-	}
-	function getComponentOrder(){
+	// TODO to be deleted 
+	// function syncComponentOrder(){
+	// 	// sync all the ordering of components
+	// 	return CategoryService
+	// 		.syncComponentOrder($scope.testComponents)
+	// 		// .syncComponentOrder(getComponentOrder($scope.testComponents))
+	// 		.$promise;
+	// }
+
+	function getComponentOrder(testComponents){
 		var orders = [];
-		for (var i = $scope.testComponents.length - 1; i >= 0; i--) {
-			var component = $scope.testComponents[i];
+		for (var i = testComponents.length - 1; i >= 0; i--) {
+			var component = testComponents[i];
 			orders.push({
 				testComponentId:component.id,
 				ordering:i+1

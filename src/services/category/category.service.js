@@ -12,7 +12,6 @@ export default angular.module('eptAdmin.service.category',[core,'ngResource'])
 					get: {
 						method:'GET',
 						params:{
-							categoryId:'@categoryId'
 						},
 						data:null,
 						headers:{
@@ -49,6 +48,18 @@ export default angular.module('eptAdmin.service.category',[core,'ngResource'])
 						}
 					}
 				});
+		function getComponentOrder(testComponents){
+			var orders = [];
+			for (var i = testComponents.length - 1; i >= 0; i--) {
+				var component = testComponents[i];
+				orders.push({
+					testComponentId:component.id,
+					ordering:i+1
+				});
+			};
+			return orders;
+		};
+		CategoryResource.getComponentOrder = getComponentOrder;
 		return CategoryResource;
 	}])
 	.name; 

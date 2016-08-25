@@ -21,6 +21,9 @@
 			<section class="section categories">
 			<h4 class="section-title">
 				Categories
+				<button ng-click="shuffleCategories()" class="btn btn-sm pull-right">
+					Shuffle
+				</button>
 			</h4>
 			<div class="section-content">
 				<ept-category category="category" ng-repeat="category in categories" ng-class="'darken-on-hover'" on-changed='saveCategory(category,oldCategory)' on-deleted="onCategoryDeleted(category)" actions="categoryActions">
