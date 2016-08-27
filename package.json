@@ -47,7 +47,6 @@
     "raw-loader": "^0.5.1",
     "renison-ept-frontend-core": "^1.0.1",
     "style-loader": "^0.12.3",
-    "textangular": "^1.5.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.9.11",
     "webpack-dev-server": "^1.9.0"

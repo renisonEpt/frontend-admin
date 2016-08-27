@@ -20,16 +20,19 @@ export default function TestController($rootScope,$scope, $stateParams, $interva
 	$scope.testEditActions = [{
 		class:'',
 		iconClass:'fa fa-trash',
-		onAction:onTestDeleted
+		onAction:onTestDeleted,
+		tooltip: 'delete'
 	},
 	{
 		class:'',
 		iconClass:'fa fa-copy',
-		onAction:onTestCopied
+		onAction:onTestCopied,
+		tooltip: 'copy'
 	},{
 		class:'',
 		iconClass:'fa fa-eye',
-		onAction:onReviewExams
+		onAction:onReviewExams,
+		tooltip: 'review tests'
 	}];
 
 	$scope.seeDetail = function(test){
@@ -65,6 +68,10 @@ export default function TestController($rootScope,$scope, $stateParams, $interva
 	};
 	$scope.toggleTestStatus = function(test,isStart,$event){
 		$event.stopPropagation();
+		if(!isStart){
+			var confirmEnd = confirm('You are about to end a test, please do this only after all students hand back tablets. Are you sure?');
+			if(!confirmEnd) return;
+		}
 		return TestService.toggleTestStatus({
 			id:test.id,
 			isStart:isStart

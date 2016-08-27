@@ -19,12 +19,15 @@ export default function TestDetailController($rootScope,$scope,
 	}];
 	$scope.categoryActions = [{
 		iconClass:'fa fa-pencil',
+		tooltip:'edit',
 		onAction:goCategoryDetail
 	},{
 		iconClass:'fa fa-chevron-up',
+		tooltip:'move up',
 		onAction:moveCategoryUp
 	},{
 		iconClass:'fa fa-chevron-down',
+		tooltip:'move down',
 		onAction:moveCategoryDown
 	}];
 	$scope.test = test;

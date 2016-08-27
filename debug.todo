@@ -45,7 +45,7 @@ functionality road map
 
  ✔ finished shuffling in test-detail controller, commented out code in category-detail controller, encountered a bug where max call stack size exceeded, from (category.service.js:76) @done (16-08-24 03:16) abandoned the idea of decorated resource
 
- ☐ trying to resolve deadlock exception by widening the time gap between requests, which seem to cause the problem. Encountered 2 other issues where error toast pops up even when no request fails, also, discovered that shuffling does change component ordering in db, but it does not show up in category-detail view not sure whats wrong
+ ✔ trying to resolve deadlock exception by widening the time gap between requests, which seem to cause the problem. Encountered 2 other issues where error toast pops up even when no request fails, also, discovered that shuffling does change component ordering in db, but it does not show up in category-detail view not sure whats wrong @done (16-08-25 12:50)
    turns out that it is not the time issue between requests, I put showErrorMsg in .then() block, 
    also, there are 2 ordering columns one in question one in test_component, which messes up the serilized json. 
 
