@@ -50,6 +50,7 @@ export default function TestController($rootScope,$scope, $stateParams, $interva
 	};
 	$scope.scoreTest = function(test,$event){
 		$event.stopPropagation();
+		test.isLoading=true;
 		TestService.scoreTest({
 			id:test.id
 		})
@@ -64,7 +65,11 @@ export default function TestController($rootScope,$scope, $stateParams, $interva
 				BaseToastService.warn('No one has written the test yet, no report generated.','No Report');
 			}
 			UtilService.downloadAsCsv(getReportName(test.name),reportData);
-		}).catch(showErrorMsg);
+		})
+		.catch(showErrorMsg)
+		.finally(function(){
+			test.isLoading = false;
+		})
 	};
 	$scope.toggleTestStatus = function(test,isStart,$event){
 		$event.stopPropagation();

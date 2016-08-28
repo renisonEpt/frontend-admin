@@ -26,6 +26,7 @@
                         <td>
                             <!-- TODO {{test.reportTime}}  -->
                             <a ng-click="scoreTest(test,$event)">score test</a>
+                            <ept-loading-bar display-type="'cover'" is-loading="test.isLoading"></ept-loading-bar>
                         </td>
                         <td>{{displayAsTime(test.createTimestamp)}}</td>
                         <td class="comment">

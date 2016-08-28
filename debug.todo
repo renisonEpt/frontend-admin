@@ -49,5 +49,6 @@ functionality road map
    turns out that it is not the time issue between requests, I put showErrorMsg in .then() block, 
    also, there are 2 ordering columns one in question one in test_component, which messes up the serilized json. 
 
- 
+ ☐ video upload, save uploaded video to folder, then save a video URL in the component
+   https://spring.io/guides/gs/uploading-files/
 
