@@ -25,30 +25,42 @@ functionality road map
  ☐ learn how to write test cases
  ✔ Admin authentication (for protected resources) @done (16-06-28 21:01)
    ✔ static password @done (16-06-28 21:01)
- ☐ test view Student answer
+ ✔ test view Student answer @done (16-08-30 11:24)
  ✔ student connection status @done (16-08-06 12:33)
    NOTE NOTE NOTE, angular resource only accepts object and arrays to be returned, not primitive data
  ✔ Remove free_text @done (16-07-07 20:09)
  ✔ cannot remove answer!! @done (16-06-28 21:46)
  ✔ Back button from category-detail to test-detail @done (16-07-07 18:53)
- ☐ loading bar
+ ✔ loading bar @done (16-08-30 11:24)
  ✔ css for editing, show a pen on hover @done (16-07-07 18:53)
  ✔ !!error not shown if request returns 403 forbidden @done (16-07-07 20:20)
  ✔ !!error not shown if any request fails @done (16-07-07 20:20)
- ☐ Category time editting should be inline-block
- ☐ deploy scripts
-   - refactor base url
-   - not a priority
- ☐ session id generator for relogging in
+ ✔ Category time editting should be inline-block @done (16-08-30 11:24)
+
+ ✔ session id generator for relogging in @done (16-08-30 11:24)
    - not a priority, wifi setting is locked, so there is no need to worry.
    - also make sure session is refreshed every 10min
-
+   - not doing
  ✔ finished shuffling in test-detail controller, commented out code in category-detail controller, encountered a bug where max call stack size exceeded, from (category.service.js:76) @done (16-08-24 03:16) abandoned the idea of decorated resource
 
  ✔ trying to resolve deadlock exception by widening the time gap between requests, which seem to cause the problem. Encountered 2 other issues where error toast pops up even when no request fails, also, discovered that shuffling does change component ordering in db, but it does not show up in category-detail view not sure whats wrong @done (16-08-25 12:50)
    turns out that it is not the time issue between requests, I put showErrorMsg in .then() block, 
    also, there are 2 ordering columns one in question one in test_component, which messes up the serilized json. 
 
- ☐ video upload, save uploaded video to folder, then save a video URL in the component
+ ✔ video upload, save uploaded video to folder, then save a video URL in the component @done (16-08-30 10:25)
    https://spring.io/guides/gs/uploading-files/
+   ✔ make AJAX call to send file to server (frontend) @done (16-08-30 10:24)
+   ✔ serve static content in Spring, how to do it? @done (16-08-29 10:13)
+   ✔ return uploaded video file to a link  @done (16-08-29 10:13)
+   ✔ make sure test component works in both admin mode and student mode @done (16-08-30 10:24)
 
+ ☐ packaging scripts
+    ✔ linux @done (16-08-30 11:18)
+    ✔ mac @done (16-08-30 11:18)
+      ☐ mac testing
+    ☐ nohup python ... & echo $! > run.pid does not return the correct pid for python process
+    ☐ windows
+       ✔ which directory should the unpacked files go? @done (16-08-30 11:23)
+       ✔ testing new scripts @done (16-08-30 12:24)
+
+ ☐ adding restriction on type of video file 

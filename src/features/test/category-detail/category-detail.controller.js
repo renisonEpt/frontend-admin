@@ -4,11 +4,12 @@ import QuestionType from 'renison-ept-frontend-core/src/constants/question-type'
 
 CategoryDetailController.$inject  = ['$rootScope','$scope', 
 	'$stateParams', '$state','$q','BaseService','$cookies','CategoryService',
-	'TestComponentService','category','testComponents','BaseToastService','UtilService'];
+	'TestComponentService','category','testComponents',
+	'BaseToastService','UtilService','Upload','$sce'];
 
 export default function CategoryDetailController($rootScope,$scope, 
 	$stateParams,$state,$q,BaseService,$cookies,CategoryService,TestComponentService,
-	category,testComponents,BaseToastService,UtilService) {
+	category,testComponents,BaseToastService,UtilService,Upload,$sce) {
 	$scope.category = category;
 	$scope.testComponents = _.sortBy(testComponents,'ordering');
 
@@ -18,18 +19,6 @@ export default function CategoryDetailController($rootScope,$scope,
 		}
 		else $state.go('test');
 	};
-
-	// TODO to be deleted
-	// $scope.shuffleComponents = function(components){
-	// 	var from = 0;
-	// 	for(var i=0;i<components.length;i++){
-	// 		if(components[i].componentType === ComponentType.COMP_HTML){
-	// 			UtilService.shuffleArray(components,from,i);
-	// 			from = i+1;
-	// 		}
-	// 	}
-	// 	return syncComponentOrder().catch(showErrorMsg);
-	// };
 
 	$scope.onComponentCreated = function(component){
 		component.categoryId = $scope.category.id;
@@ -42,14 +31,6 @@ export default function CategoryDetailController($rootScope,$scope,
 			.then(syncComponentOrder)
 			.catch(showErrorMsg);
 	};
-	// TODO to be deleted 
-	// function syncComponentOrder(){
-	// 	// sync all the ordering of components
-	// 	return CategoryService
-	// 		.syncComponentOrder($scope.testComponents)
-	// 		// .syncComponentOrder(getComponentOrder($scope.testComponents))
-	// 		.$promise;
-	// }
 
 	function getComponentOrder(testComponents){
 		var orders = [];
@@ -62,14 +43,22 @@ export default function CategoryDetailController($rootScope,$scope,
 		};
 		return orders;
 	}
-
+	// from http://jsfiddle.net/danialfarid/maqbzv15/1118/
+	$scope.$on('videoFileChanged',function($event,data){
+		Upload.upload({
+		     url: BaseService.BASE_URL + '/testComponents/upload',
+		     data: {videoFile: data.file},
+	    }).then(function (resp) {
+	     	data.component.content = BaseService.BASE_URL+resp.data.fileUrl;
+		}).catch(showErrorMsg);
+	});
 	$scope.onComponentChanged = function(component,oldComponent){
 		// do not do anything if id or ordering is changed, that is irrelevant
 		// those changes are synced somewhere else
-		if(component.id!==oldComponent.id || component.ordering !== oldComponent.ordering){
+		if(component.id!==oldComponent.id 
+			|| component.ordering !== oldComponent.ordering){
 			return;
 		}
-		console.log('component to be updated',component);
 		TestComponentService
 			.save(component)
 			.$promise
@@ -95,6 +84,11 @@ export default function CategoryDetailController($rootScope,$scope,
 		.catch(showErrorMsg);
 	};
 
+	function syncComponentOrder(){
+		return CategoryService.syncComponentOrder(
+			CategoryService.getComponentOrder($scope.testComponents))
+			.$promise;
+	}
 	function showErrorMsg(response){
 		var errorMsg = 'Oops, a technical just occurred.'
 		if(response && response.data && response.data.errorMessage){
