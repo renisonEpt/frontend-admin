@@ -139,7 +139,7 @@ export default function TestDetailController($rootScope,$scope,
 		var from = 0;
 		// 
 		for(var i=0;i<=components.length;i++){
-			if(!components[i] || (components[i].componentType === ComponentType.COMP_HTML)){
+			if(!components[i] || !ComponentType.isQuestionType(components[i].componentType)){
 				UtilService.shuffleArray(components,from,i);
 				from = i+1;
 			}
@@ -148,20 +148,32 @@ export default function TestDetailController($rootScope,$scope,
 
 	// for each category, shuffle its components
 	$scope.shuffleCategories = function (){
-		_.forEach($scope.categories, function(category){
-			CategoryService.getTestComponents({
+
+		// get all test components for each category
+		var allPromises = _.map($scope.categories, function(category){
+			return CategoryService.getTestComponents({
 				categoryId:category.id
 			})
 			.$promise
-			.then(function(components){
-				shuffleComponents(components);
-				return CategoryService
-					.syncComponentOrder(
-						CategoryService.getComponentOrder(components))
-					.$promise;
+		});
+		// wait till we get back all test components
+		return $q.all(allPromises)
+			.then(function(testComponentsSet){
+				// get back a set of test components 
+				// [TestComponents for category 1, ...]
+
+				// map components in each category to orders and then concatenate them
+				// see https://lodash.com/docs#flatMap
+				var orders = _.flatMap(testComponentsSet,function(testComponents){
+					shuffleComponents(testComponents);
+					return CategoryService.getComponentOrder(testComponents);
+				});
+				return orders;
+			})
+			.then(function(orders){
+				return CategoryService.syncComponentOrder(orders).$promise;
 			})
 			.catch(showErrorMsg);
-		});
 	};
 	function showErrorMsg(response){
 		var errorMsg = 'Oops, a technical just occurred.'

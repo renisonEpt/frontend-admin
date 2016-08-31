@@ -64,3 +64,19 @@ functionality road map
        ✔ testing new scripts @done (16-08-30 12:24)
 
  ☐ adding restriction on type of video file 
+
+Bugs:
+ ☐ video file upload has serious problem
+   ☐ bad file to be processed
+   ☐ not reproduceable on linux
+   ☐ not reproduceable on windows
+
+ ✔ cannot stop an empty test @done (16-08-31 09:37)
+   ✔ asking for sessions on a test with no sessions return 404 @done (16-08-31 09:47)
+ ✔ shuffling does not work sometimes, due to deadlock, consider concatenating some requests @done (16-08-31 09:33)
+ ✔ images larger than 50kb cannot be uploaded @done (16-08-31 09:37)
+   use MEDIUMTEXT, which has limit 64Mb
+   used LONGTEXT
+ ✔ shuffling with video content @done (16-08-31 09:37)
+ ✔ question numbering with video and comp_html has problem @done (16-08-31 09:45)
+ ☐ when packaging, old scripts are usually packaged
