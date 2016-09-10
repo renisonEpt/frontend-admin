@@ -64,6 +64,7 @@ functionality road map
        ✔ testing new scripts @done (16-08-30 12:24)
 
  ☐ adding restriction on type of video file 
+   ☐ only accepting mp4, although other video type, such as mkv could work
 
 Bugs:
  ☐ video file upload has serious problem
@@ -76,7 +77,11 @@ Bugs:
  ✔ shuffling does not work sometimes, due to deadlock, consider concatenating some requests @done (16-08-31 09:33)
  ✔ images larger than 50kb cannot be uploaded @done (16-08-31 09:37)
    use MEDIUMTEXT, which has limit 64Mb
-   used LONGTEXT
+   used LONGTEXT, 64 Gb limit
  ✔ shuffling with video content @done (16-08-31 09:37)
  ✔ question numbering with video and comp_html has problem @done (16-08-31 09:45)
- ☐ when packaging, old scripts are usually packaged
+ ✔ when packaging, old scripts are usually packaged @done (16-09-03 09:50)
+   ✔ not reproduceable @done (16-09-03 09:50)
+   ✔ browser cache issue @done (16-09-03 10:36)
+
+ ✔ wording change, and warning on unfinished question @done (16-09-03 11:31)

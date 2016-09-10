@@ -49,7 +49,7 @@ export default function CategoryDetailController($rootScope,$scope,
 		     url: BaseService.BASE_URL + '/testComponents/upload',
 		     data: {videoFile: data.file},
 	    }).then(function (resp) {
-	     	data.component.content = BaseService.BASE_URL+resp.data.fileUrl;
+	     	data.component.content = resp.data.fileUrl;
 		}).catch(showErrorMsg);
 	});
 	$scope.onComponentChanged = function(component,oldComponent){
