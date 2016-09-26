@@ -12,7 +12,12 @@ export default function CategoryDetailController($rootScope,$scope,
 	category,testComponents,BaseToastService,UtilService,Upload,$sce) {
 	$scope.category = category;
 	$scope.testComponents = _.sortBy(testComponents,'ordering');
-
+	for (var i = $scope.testComponents.length - 1; i >= 0; i--) {
+		var c = $scope.testComponents[i];
+		if ( c.componentType === ComponentType.COMP_VIDEO){
+			c.content = BaseService.BASE_URL + c.content;
+		}
+	};
 	$scope.goBack = function(){
 		if($rootScope.previousState.name) {
 			$state.go($rootScope.previousState.name,$rootScope.previousState.params);
@@ -57,7 +62,7 @@ export default function CategoryDetailController($rootScope,$scope,
 		// those changes are synced somewhere else
 		if(component.id!==oldComponent.id 
 			|| component.ordering !== oldComponent.ordering){
-			return;
+			return;VIDEO
 		}
 		TestComponentService
 			.save(component)
