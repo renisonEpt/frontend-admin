@@ -2,18 +2,71 @@
     <header class="page-header clear-fix">
         <span class="back">
         <!-- <i class="ept-back-button fa fa-arrow-left" ng-click="goBack()"></i></span> -->
-        <h3 class="page-title">
-            {{scoredSessions.length}} scored test(s) in total
-        </h3>
+        <h2 class="page-title">
+            <i class="fa fa-eye"></i> &nbsp; Review Exams
+        </h2>
     </header>
     <div class="review-exams-page">
-        <ept-group class="scored-session-list">
-            <ept-item ng-click="viewExam(session)" ng-repeat="session in scoredSessions">
-                <div style="width:100%">
-                    <h3 class="pull-left">{{session.name}}</h3>
-                    <h3 class="pull-right">{{session.score}}/{{session.totalScore}}</h3>
-                </div>
-            </ept-item>
-        </ept-group>
+        <section class="exam-sections">
+            <div class="section-header">
+                <h2 class="title">
+                    Scored Exams <span class="badge badge-lg">{{scoredSessions.length}}</span>
+                    <i class="fa fa-chevron-left pull-right"></i>
+                </h2>
+            </div>
+            <div class="section-content">
+                <ept-group class="scored-session-list" ng-show="expandScored">
+                    <ept-item ng-click="viewExam(session)" ng-repeat="session in scoredSessions">
+                        <div style="width:100%">
+                            <h3 class="pull-left">{{session.name}}</h3>
+                            <h3 class="pull-right">{{session.score}}/{{session.totalScore}}</h3>
+                        </div>
+                    </ept-item>
+                </ept-group>
+            </div>
+        </section>
+        <section class="exam-sections">
+            <div class="section-header">
+                <h2 class="title">
+                    Ongoing Exams <span class="badge badge-lg">5</span>
+                    <i class="fa fa-chevron-down pull-right"></i>
+                </h2>
+            </div>
+            <div class="section-content">
+                <ept-group class='ongoing-session-list'>
+                    <ept-item ng-repeat="session in ongoingSessions" >
+                        <ept-namecard  name="session.name" important-remark="getFinishedMessage(session)" action-context="session" actions="ongoingSessionActions"></ept-namecard>
+                        <div class="overlay active" ng-class="{'active':session.edittingEnabled}">
+                            <form class="form">
+                              <div class="form-group row">
+                                  <label class="col-xs-2 col-xs-offset-2 col-form-label">Category</label>
+                                  <div class="col-xs-5">
+                                      <select class="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                      </select>
+                                  </div>
+                                </div>
+                                <br>
+                              <div class="form-group row">
+                                <label class="col-xs-2 col-xs-offset-2 col-form-label"><i class="fa fa-clock-o"></i></label>
+                                <div class="col-xs-5">
+                                    <input type="number" class="form-control" placeholder="12">
+                                </div>
+                              </div>
+                              <div class="row">
+                                  <button class="btn btn-primary">Change</button>
+                                  <button class="btn">Cancel</button>
+                              </div>
+                            </form>
+                        </div>
+                    </ept-item>
+                </ept-group>
+                
+            </div>
+        </section> 
     </div>
 </div>

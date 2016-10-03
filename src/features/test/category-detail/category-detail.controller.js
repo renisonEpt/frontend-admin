@@ -62,7 +62,7 @@ export default function CategoryDetailController($rootScope,$scope,
 		// those changes are synced somewhere else
 		if(component.id!==oldComponent.id 
 			|| component.ordering !== oldComponent.ordering){
-			return;VIDEO
+			return;
 		}
 		TestComponentService
 			.save(component)

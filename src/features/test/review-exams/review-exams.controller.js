@@ -14,4 +14,26 @@ export default function ExamDetailController($rootScope,$scope,
             testSessionId:scoredSession.id
         });
     };
+    $scope.ongoingSessions = [{
+        name:'Han Chen'
+    },{
+        name: 'Steven Liu'
+    },{
+        name: 'Lewis Zhou',
+        testSubmitted: true,
+        edittingEnabled:true
+    }];
+    $scope.ongoingSessionActions = [{
+        iconClass: 'fa fa-pencil',
+        onAction: function(session){
+            session.edittingEnabled = true;
+
+        }
+    }];
+    $scope.getFinishedMessage = function(session){
+        if(session.testSubmitted){
+            return 'FINISHED 20 secs ago';
+        }
+        return '';
+    };
 }
