@@ -50,6 +50,10 @@ export default function TestController($rootScope,$scope, $stateParams, $interva
 	};
 	$scope.scoreTest = function(test,$event){
 		$event.stopPropagation();
+		if(test.active){
+			BaseToastService.error('You must stop the test before scoring');
+			return;
+		}
 		test.isLoading=true;
 		TestService.scoreTest({
 			id:test.id
@@ -149,7 +153,7 @@ export default function TestController($rootScope,$scope, $stateParams, $interva
 	}
 
 	function onReviewExams(test){
-		$state.go('reviewExams',{testId:test.id})
+		$state.go('reviewExams',{testId:test.id,active:test.active});
 	}
 
 	function getReportName(testName){

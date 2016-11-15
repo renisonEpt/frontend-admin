@@ -22,6 +22,13 @@ export default angular.module('eptAdmin.service.test',[core,'ngResource'])
 						},
 						isArray:true
 					},
+					getStudentStatus:{
+						method:'GET',
+						params:{
+							subResource:'studentStatus'
+						},
+						isArray:true
+					},
 					getSessions:{
 						method:'GET',
 						params:{

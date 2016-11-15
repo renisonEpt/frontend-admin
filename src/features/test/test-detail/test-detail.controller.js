@@ -6,12 +6,11 @@ import QuestionType from 'renison-ept-frontend-core/src/constants/question-type'
 var _ = require('lodash');
 TestDetailController.$inject  = ['$rootScope','$scope', 
 	'$stateParams', '$state','$q','BaseService','$cookies','TestService','CategoryService',
-	'test','categories','BaseToastService','UtilService'];
+	'test','categories','BaseToastService','UtilService','$timeout'];
 
 export default function TestDetailController($rootScope,$scope, 
 	$stateParams,$state,$q,BaseService,$cookies,TestService,
-	CategoryService,test,categories,BaseToastService,UtilService) {
-
+	CategoryService,test,categories,BaseToastService,UtilService,$timeout) {
 	$scope.toolbarActions = [{
 		iconClass:'fa fa-plus',
 		text:'New Category',

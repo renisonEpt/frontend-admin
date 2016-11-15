@@ -11,13 +11,31 @@ import test from "./features/test";
 import auth from "./features/auth";
 angular.module('EPTAdmin', [uirouter, core,test,auth])
 	.config(routing)
-    .run(['$rootScope',function($rootScope){
-        $rootScope.currentState;
-        $rootScope.$on('$stateChangeSuccess', function(ev, to, toParams, from, fromParams) {
-            $rootScope.previousState = {
-                name: from.name,
-                params:fromParams
-            };
+    .run(['$rootScope','$document',function($rootScope,$document){
+        $rootScope.loadingbarShown = false;
+        $rootScope.showLoader = function(){
+            $rootScope.loadingbarShown = true;
+        };
+        $rootScope.hideLoader = function(){
+            $rootScope.loadingbarShown = false;
+        };
+        $rootScope.$on('$stateChangeStart',function(){
+            $rootScope.showLoader();
+        });
+        $rootScope.$on('$stateChangeSuccess',function(){
+            $rootScope.hideLoader();
+        });
+        $rootScope.$on('$stateNotFound',function(){
+            $rootScope.hideLoader();
+        });
+        $rootScope.$on('$stateChangeError',function(){
+            $rootScope.hideLoader();
+        });
+        $rootScope.$on('loadingStart',function(){
+            $rootScope.showLoader();
+        });
+        $rootScope.$on('loadingEnd',function(){
+            $rootScope.hideLoader();
         });
     }])
 

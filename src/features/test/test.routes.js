@@ -58,7 +58,7 @@ export default function routes($stateProvider) {
     })
     .state('reviewExams',{
       parent:'Auth',
-      url:'/test/:testId/reviewExams',
+      url:'/test/:testId/reviewExams?active',
       template:require('./review-exams/review-exams.html'),
       controller:'ReviewExamsController',
       resolve:{
@@ -67,6 +67,17 @@ export default function routes($stateProvider) {
             testId:$stateParams.testId
           });
           return scoredSessions.$promise;
+        }],
+        'studentStatus':['TestService','$stateParams',function(TestService,$stateParams){
+          return TestService.getStudentStatus({
+            testId:$stateParams.testId
+          }).$promise;
+        }],
+        'categories':['TestService','$stateParams',function(TestService,$stateParams){
+          var categories =  TestService.getCategories({
+            testId:$stateParams.testId
+          });
+          return categories.$promise;
         }],
       }
     })

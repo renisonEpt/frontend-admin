@@ -85,3 +85,37 @@ Bugs:
    ✔ browser cache issue @done (16-09-03 10:36)
 
  ✔ wording change, and warning on unfinished question @done (16-09-03 11:31)
+ ☐ Id url template not bound: see https://docs.angularjs.org/api/ngResource/service/$resource
+     - In a GET request, if paramDefault is {testId:'@id'}, this will be ignored, we still need to pass in TestService.get({testId:'my-test-id'}) to properly bound a URL template
+     - In all other request where requestBody is allowed, if paramDefault is {testId:'@id'}, it will NOT be ignored, instead, pass in TestService.post({id:'my-test-id'})
+
+Oct 8, 2016:
+  ✔ Resolve UI problems @done (16-10-08 11:28)
+    ✔ importantRemark display @done (16-10-08 11:28)
+    ☐ category info entry display
+    ✔ make sure that editting enabled does not change @done (16-10-08 12:05)
+  ☐ make sure setProgress works
+    ✔ need category id @done (16-10-08 12:58)
+    ✔ change test_submitted @done (16-10-08 13:08)
+    ✔ check max time before sending , not doing @done (16-10-08 13:27)
+    ✔ UI issue @started(16-10-08 13:09) @done (16-10-08 13:12) @lasted(0:03)
+    ✔ why request to tests/sessions?  cannot reproduce @done (16-10-08 13:12)
+    ✔ make sure all previous progresses end @done (16-10-08 13:47)
+    ✔ accordion list @done (16-10-08 14:11)
+  ✔ loading bar (require 1.4s to appear?) @done (16-10-08 22:45)
+    ✔ not sure, cannot appear for some reason @done (16-10-08 22:45)
+  ✔ student refresh if receive change (no socket plz) not doing @done (16-11-05 11:31)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

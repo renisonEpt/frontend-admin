@@ -74,6 +74,22 @@ export default angular.module('eptAdmin.service.util',[])
 		service.formatDate = function(date){
 			return date.toISOString().slice(0, 10);
 		};
+		// format 600 to 10:00
+		service.formatSeconds = function(seconds){
+			var min = Math.floor(seconds/60);
+			var sec = seconds%60;
+			if(min < 10){
+				min = "0"+min;
+			}else{
+				min = min+"";
+			}
+			if(sec < 10){
+				sec = "0" + sec;
+			}else{
+				sec = sec +""; //make sure sec is string
+			}
+			return min+":"+sec;
+		}
 		// given an array, including indices `from` but excluding `to`
 		// randomly shuffle elements in between,
 		// e.g. shuffleArray([1,2,3,4],0,4) => [4,3,1,2] all elements shuffled

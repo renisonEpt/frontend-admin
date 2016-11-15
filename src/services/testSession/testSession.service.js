@@ -16,10 +16,17 @@ export default angular.module('eptAdmin.service.testSession',[core,'ngResource']
                     getExam:{
                         method:'GET',
                         params:{
-                            testSessionId:'@id', // for some reason this doesnot work
+                            // testSessionId:'@id', this doesnot work, search "Id url template not bound" in debug.todo
                             subResource:'exam'
                         }
-                    }
+                    },
+                    setProgress:{
+                        method:'POST',
+                        params:{
+                            subResource: 'setProgress',
+                            testSessionId:'@testSessionId'
+                        }
+                    },
                 }, );
         return TestSessionResource;
     }])
